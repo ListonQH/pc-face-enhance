@@ -32,9 +32,16 @@ protected:
 	cv::Mat p_g_channel;
 	cv::Mat p_r_channel;
 	std::vector<cv::Mat> p_split_result_vec;
+#ifdef MODEL_FP_16
+	cv::Mat p_b_out_channel;
+	cv::Mat p_g_out_channel;
+	cv::Mat p_r_out_channel;
+	std::vector<cv::Mat> p_merge_result_vec;
+#endif // MODEL_FP_16
+
 	cv::Mat p_infer_result;
 
 	INPUT_DATA_TYPE* p_cpu_infer_input_buffer;
-	INPUT_DATA_TYPE* p_cpu_infer_output_buffer;
+	OUTPUT_DATA_TYPE* p_cpu_infer_output_buffer;
 };
 

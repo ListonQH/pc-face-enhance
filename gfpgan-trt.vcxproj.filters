@@ -30,6 +30,12 @@
     <ClCompile Include="gfpgan_class.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="gfpgan_class_cuda_ocv.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="test.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="gfpgan_class_v85.h">
@@ -50,9 +56,14 @@
     <ClInclude Include="resource.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="gfpgan_class_cuda_ocv.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="modified_v13.engine" />
+    <None Include="README.md" />
+    <None Include="v13_f16.engine" />
+    <None Include="v13_f32.engine" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="gfpgan-trt.rc">

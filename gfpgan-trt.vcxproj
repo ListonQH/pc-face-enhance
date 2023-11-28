@@ -73,7 +73,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <IncludePath>$(OCV_ROT)\build\include;$(OCV_ROT)\build\include\opencv2;$(IncludePath)</IncludePath>
-    <LibraryPath>$(OCV_ROT)\build\x64\vc15\lib;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(OCV_ROT)\build\x64\vc17\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -130,19 +130,22 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>opencv_world460.lib;$(TRT_V86_PATH)\*.lib;$(CUDA_PATH)\lib\x64\*.lib;nvinfer_plugin.lib;nvonnxparser.lib;nvparsers.lib;cudnn.lib;cublas.lib;cudart.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opencv_world480.lib;$(TRT_V86_PATH)\*.lib;$(CUDA_PATH)\lib\x64\*.lib;nvinfer_plugin.lib;nvonnxparser.lib;nvparsers.lib;cudnn.lib;cublas.lib;cudart.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(TRT_V86_PATH)\lib;$(CUDA_PATH)\lib\x64;$(CUDA_PATH)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="gfpgan_class_cuda_ocv.cpp" />
     <ClCompile Include="gfpgan_class_v85.cpp" />
     <ClCompile Include="gfpgan_class_v86.cpp" />
     <ClCompile Include="gfpgan_class.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="test.cpp" />
     <ClCompile Include="trt_logger.h" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="error_code.h" />
+    <ClInclude Include="gfpgan_class_cuda_ocv.h" />
     <ClInclude Include="gfpgan_class_v86.h" />
     <ClInclude Include="gfpgan_class.h" />
     <ClInclude Include="resource.h" />
@@ -150,7 +153,9 @@
     <ClInclude Include="gfpgan_class_v85.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="modified_v13.engine" />
+    <None Include="README.md" />
+    <None Include="v13_f16.engine" />
+    <None Include="v13_f32.engine" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="gfpgan-trt.rc" />

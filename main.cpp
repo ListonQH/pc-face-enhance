@@ -47,6 +47,8 @@ int main()
 	cv::Mat new_img;
 	int key = 0;
 	size_t counter = 0;
+	size_t out_infer_time = 0;
+	size_t begin = 0;
 	while (true)
 	{
 		cap >> old_img;
@@ -55,12 +57,17 @@ int main()
 		cv::resize(source_img, resize_img, cv::Size(512, 512));
 		cv::imshow("Old img", resize_img);
 
+		begin = cv::getTickCount();
 		new_img = instance->Infer(resize_img);
+		out_infer_time = out_infer_time + (cv::getTickCount() - begin);
 
 		cv::imshow("New img", new_img);
-		if (counter % 30 == 0)
+		if (counter % 90 == 0)
 		{
 			instance->DisplayTestInfo();
+			std::cout << instance->GetInstanceName() << "out infer time:" << out_infer_time * 1.0 / cv::getTickFrequency() * 1000.0  / counter << " ms" << std::endl << std::endl;
+			counter = 0;
+			out_infer_time = 0;
 		}
 
 		key = cv::waitKey(2);

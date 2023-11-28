@@ -9,7 +9,9 @@
 
 # 参考
 
-[GFPGAN](https://github.com/TencentARC/GFPGAN/blob/master/README.md): GFPGAN aims at developing a Practical Algorithm for Real-world Face Restoration
+感谢如下研究者的工作：
+
+[GFPGAN](https://github.com/TencentARC/GFPGAN/blob/master/README.md): GFPGAN aims at developing a Practical Algorithm for Real-world Face Restoration.
 
 [Real-ESRGAN](https://github.com/xinntao/Real-ESRGAN): A practical algorithm for general image restoration.
 
@@ -17,5 +19,12 @@
 
 [facexlib](https://github.com/xinntao/facexlib): A collection that provides useful face-relation functions.
 
-[HandyView](https://github.com/xinntao/HandyView): A PyQt5-based image viewer that is handy for view and comparison.
+[OpenCV 4.6.0](https://github.com/opencv/opencv/tree/4.6.0): OpenCV Library.
 
+[opencv_contrib 4.6.0](https://github.com/opencv/opencv_contrib/releases/tag/4.6.0): If necessary, build with CUDA, use this extr.
+
+[OpenVINO](https://www.intel.com/content/www/us/en/developer/tools/openvino-toolkit/overview.html): OpenVINO.
+
+[ONNXRuntime](https://onnxruntime.ai/): ONNX Runtime.
+
+[TensorRT](https://developer.nvidia.cn/tensorrt): TensoRT.
