@@ -13,9 +13,9 @@ GfpGanClass::GfpGanClass()
 	this->p_g_channel = cv::Mat::zeros(INPUT_HEIGHT, INPUT_WIDTH, CV_16FC1);
 	this->p_r_channel = cv::Mat::zeros(INPUT_HEIGHT, INPUT_WIDTH, CV_16FC1);
 
-	p_b_out_channel = cv::Mat::zeros(INPUT_HEIGHT, INPUT_WIDTH, CV_32FC1);
-	p_g_out_channel = cv::Mat::zeros(INPUT_HEIGHT, INPUT_WIDTH, CV_32FC1);
-	p_r_out_channel = cv::Mat::zeros(INPUT_HEIGHT, INPUT_WIDTH, CV_32FC1);
+	p_b_out_channel = cv::Mat::zeros(INPUT_HEIGHT, INPUT_WIDTH, CV_16FC1);
+	p_g_out_channel = cv::Mat::zeros(INPUT_HEIGHT, INPUT_WIDTH, CV_16FC1);
+	p_r_out_channel = cv::Mat::zeros(INPUT_HEIGHT, INPUT_WIDTH, CV_16FC1);
 
 	this->p_merge_result_vec.push_back(this->p_b_out_channel);
 	this->p_merge_result_vec.push_back(this->p_g_out_channel);
@@ -66,14 +66,14 @@ void GfpGanClass::pPreProcess(cv::Mat input_img)
 	cv::Mat input_mat;
 	// conver to float: 32f
 #ifdef MODEL_FP_16
-	input_img.convertTo(input_mat, CV_16FC3, 1.0 / 255.0);
+	input_img.convertTo(input_mat, CV_16FC3, 1.0 / 255.0, 0);
 #else
 	input_img.convertTo(input_mat, CV_32FC3, 1.0 / 255.0);
 #endif // MODEL_FP_16
 
 	
 	// in gfpgan: mean: 0.5; STD:0.5
-	cv::Mat input_data = (input_mat - 0.5) / 0.5; // what about (2 * input_mat - 1)
+	cv::Mat input_data = (input_mat - 0.5f) / 0.5f; // what about (2 * input_mat - 1)
 	cv::split(input_data, this->p_split_result_vec);
 	double begin = cv::getTickCount();
 
@@ -120,7 +120,8 @@ void GfpGanClass::pPostProcess()
 	memcpy(this->p_b_channel.data, this->p_cpu_infer_output_buffer + 2 * img_data_size, img_data_size * sizeof(OUTPUT_DATA_TYPE));
 	cv::merge(this->p_split_result_vec, this->p_infer_result);
 #endif // MODEL_FP_16
-
+	this->p_infer_result = (this->p_infer_result + 1.0f) / 2.0f;
+	this->p_infer_result.convertTo(this->p_infer_result, CV_8UC3, 255);
 }
 
 bool GfpGanClass::pLoadEngineFileToMemery()
