@@ -2,14 +2,14 @@
 
 #include <opencv2/opencv.hpp>
 
-//#define MODEL_FP_16 true
-//#define INPUT_DATA_TYPE			cv::float16_t
-//#define OUTPUT_DATA_TYPE		float
-//constexpr auto TRT_ENGINE_FILE_PATH = "v13_f16.engine";
+#define MODEL_FP_16 true
+#define INPUT_DATA_TYPE			cv::float16_t
+#define OUTPUT_DATA_TYPE		cv::float16_t
+constexpr auto TRT_ENGINE_FILE_PATH = "v12f16.engine";
 
-#define INPUT_DATA_TYPE			float
-#define OUTPUT_DATA_TYPE		float
-constexpr auto TRT_ENGINE_FILE_PATH = "v13_f32.engine";
+//#define INPUT_DATA_TYPE			float
+//#define OUTPUT_DATA_TYPE		float
+//constexpr auto TRT_ENGINE_FILE_PATH = "v12f32.engine";
 
 #define INPUT_BATCH				1
 #define INPUT_CHANNEL			3

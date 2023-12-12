@@ -64,6 +64,8 @@
     <None Include="README.md" />
     <None Include="v13_f16.engine" />
     <None Include="v13_f32.engine" />
+    <None Include="m512f32.engine" />
+    <None Include="stylegan-f16.engine" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="gfpgan-trt.rc">

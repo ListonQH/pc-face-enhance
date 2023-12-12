@@ -10,9 +10,9 @@ class GfpGanClass
 {
 public:
 	GfpGanClass();
-	void DisplayTestInfo();
-	std::string GetInstanceName();
-	virtual bool Init();
+	void			DisplayTestInfo();
+	std::string		GetInstanceName();
+	virtual bool	Init();
 	virtual cv::Mat Infer(cv::Mat in_img);
 
 protected:
@@ -21,12 +21,12 @@ protected:
 	void	pPostProcess();
 
 	std::string p_test_name;
-	double p_test_infer_time_ms;
-	size_t p_test_infer_counter;
+	double		p_test_infer_time_ms;
+	size_t		p_test_infer_counter;
 
 	// engine file length
-	size_t p_engine_file_length;
-	char* p_engine_file_buffer;
+	size_t	p_engine_file_length;
+	char*	p_engine_file_buffer;
 
 	cv::Mat p_b_channel;
 	cv::Mat p_g_channel;
@@ -41,7 +41,7 @@ protected:
 
 	cv::Mat p_infer_result;
 
-	INPUT_DATA_TYPE* p_cpu_infer_input_buffer;
-	OUTPUT_DATA_TYPE* p_cpu_infer_output_buffer;
+	INPUT_DATA_TYPE*	p_cpu_infer_input_buffer;
+	OUTPUT_DATA_TYPE*	p_cpu_infer_output_buffer;
 };
 
