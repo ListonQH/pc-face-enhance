@@ -33,3 +33,13 @@ constexpr auto MODEL_OUTPUT_NAME    = "output";
             abort();\
         }\
     } while (0)
+
+#define ASSERT(condition)                                                   \
+    do                                                                      \
+    {                                                                       \
+        if (!(condition))                                                   \
+        {                                                                   \
+            std::cerr << "Assertion failure: " << #condition << std::endl;  \
+            abort();                                                        \
+        }                                                                   \
+    } while (0)

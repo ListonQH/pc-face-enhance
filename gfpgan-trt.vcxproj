@@ -124,6 +124,7 @@
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(TRT_V86_PATH)\include;$(CUDA_PATH)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -142,22 +143,24 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="test.cpp" />
     <ClCompile Include="trt_logger.h" />
+    <ClCompile Include="utils.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="error_code.h" />
     <ClInclude Include="gfpgan_class_cuda_ocv.h" />
     <ClInclude Include="gfpgan_class_v86.h" />
     <ClInclude Include="gfpgan_class.h" />
+    <ClInclude Include="gfpgan_trt_int8_calibrator.h" />
+    <ClInclude Include="gfpgan_trt_int8_stream.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="run_constant.h" />
     <ClInclude Include="gfpgan_class_v85.h" />
+    <ClInclude Include="utils.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="m512f32.engine" />
     <None Include="README.md" />
     <None Include="stylegan-f16.engine" />
-    <None Include="v13_f16.engine" />
-    <None Include="v13_f32.engine" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="gfpgan-trt.rc" />
