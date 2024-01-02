@@ -16,8 +16,8 @@ public:
         , mInputBlobName(inputBlobName)
         , mReadCache(readCache)
     {
-        mInputCount = 25 * 3 * 512 * 512;
-        CHECK(cudaMalloc(&mDeviceInput, mInputCount * sizeof(cv::float16_t)));
+        mInputCount = CALIB_STEP * 3 * 512 * 512;
+        CHECK(cudaMalloc(&mDeviceInput, mInputCount * sizeof(INPUT_DATA_TYPE)));
     }
 
     virtual ~EntropyCalibratorImpl()
@@ -36,7 +36,7 @@ public:
         {
             return false;
         }
-        CHECK(cudaMemcpy(mDeviceInput, mStream.getBatch(), mInputCount * sizeof(cv::float16_t), cudaMemcpyHostToDevice));
+        CHECK(cudaMemcpy(mDeviceInput, mStream.getBatch(), mInputCount * sizeof(MODEL_IN_DATA_TYPE), cudaMemcpyHostToDevice));
         ASSERT(!strcmp(names[0], mInputBlobName));
         bindings[0] = mDeviceInput;
         return true;

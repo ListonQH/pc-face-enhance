@@ -11,7 +11,7 @@
 
 using namespace std;
 
-int main222()
+int main()
 {
 	GfpGanClass* instance = nullptr;
 

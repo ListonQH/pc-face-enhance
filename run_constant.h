@@ -2,14 +2,19 @@
 
 #include <opencv2/opencv.hpp>
 
-#define MODEL_FP_16 true
-#define INPUT_DATA_TYPE			cv::float16_t
-#define OUTPUT_DATA_TYPE		cv::float16_t
-constexpr auto TRT_ENGINE_FILE_PATH = "v12f16.engine";
+#define MODEL_IO_UI8            true
+#define INPUT_DATA_TYPE			unsigned char
+#define OUTPUT_DATA_TYPE		unsigned char
+constexpr auto TRT_ENGINE_FILE_PATH = "./models/folded.trt";
+
+//#define MODEL_IO_F16 true
+//#define INPUT_DATA_TYPE			cv::float16_t
+//#define OUTPUT_DATA_TYPE		cv::float16_t
+//constexpr auto TRT_ENGINE_FILE_PATH = "./models/fold-f16.engine";
 
 //#define INPUT_DATA_TYPE			float
 //#define OUTPUT_DATA_TYPE		float
-//constexpr auto TRT_ENGINE_FILE_PATH = "v12f32.engine";
+//constexpr auto TRT_ENGINE_FILE_PATH = "./models/fold.engine";
 
 #define INPUT_BATCH				1
 #define INPUT_CHANNEL			3

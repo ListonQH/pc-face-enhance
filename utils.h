@@ -1,5 +1,7 @@
 #pragma once
 
+#include "NvInfer.h"
+
 #include <direct.h>
 #include <io.h>
 #include <filesystem>
@@ -15,4 +17,8 @@ namespace LqhUtil
 	bool IsDirExist(const std::string& file_path, bool is_create);
 
 	std::vector<std::string> GetFilesPath(std::string path, std::string file_type);
+
+
+	std::string GetLayerDataType(nvinfer1::DataType dt);
+	std::string GetLayerOpType(nvinfer1::LayerType lt);
 }

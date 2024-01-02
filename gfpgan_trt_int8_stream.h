@@ -11,7 +11,9 @@
 #include <numeric>
 #include <opencv2/opencv.hpp>
 
-#define MODEL_IN_DATA_TYPE cv::float16_t
+#define MODEL_IN_DATA_TYPE  cv::float16_t
+#define USE_FLOAT_16        false
+#define CALIB_STEP          25
 
 class IBatchStream
 {
@@ -31,7 +33,7 @@ class GfpGanInt8Stream : public IBatchStream
 public:
     GfpGanInt8Stream()
     {
-        p_img_read_step = 25;
+        p_img_read_step = CALIB_STEP;
         mBatchCount = 0;
 
         if (!pPrepareImagesPath())
@@ -40,7 +42,7 @@ public:
             return;
         }
 
-        p_batch_data = new cv::float16_t[25 * 3 * 512 * 512];
+        p_batch_data = new MODEL_IN_DATA_TYPE[CALIB_STEP * 3 * 512 * 512];
 
     }
 
@@ -54,11 +56,16 @@ public:
         this->mBatch.clear();
         this->mBatch.resize(3 * 512 * 512 * p_img_read_step);
         size_t index(0);
-        cv::Mat temp(512, 512, CV_16FC3);
+        cv::Mat temp;
         for (; index < p_img_read_step; ++index)
         {
             temp = cv::imread(p_vec_imgs_path[index + mBatchCount], cv::IMREAD_COLOR);
+#ifdef USE_FLOAT_16
             temp.convertTo(temp, CV_16FC3, 1.0 / 255.0, 0);
+#else
+            temp.convertTo(temp, CV_32FC3, 1.0 / 255.0, 0);
+#endif // USE_FLOAT_16
+            
             cv::Mat input_data = (temp - 0.5) / 0.5;
             cv::split(input_data, p_vec_split_res);
 
@@ -66,7 +73,7 @@ public:
             std::memcpy(p_batch_data + index * 3 * 512 * 512 + 0 * 512 * 512, p_vec_split_res[1].data, 512 * 512);
             std::memcpy(p_batch_data + index * 3 * 512 * 512 + 0 * 512 * 512, p_vec_split_res[0].data, 512 * 512);
         }
-        std::cout << "[GfpGanInt8Stream] Current batch data size: " << 25 * 3 * 512 * 512 << " loaded!" << std::endl;
+        std::cout << "[GfpGanInt8Stream] Current batch data size: " << CALIB_STEP * 3 * 512 * 512 << " loaded!" << std::endl;
         mBatchCount = mBatchCount + p_img_read_step;
         return true;
     }
@@ -105,7 +112,7 @@ public:
     {
         nvinfer1::Dims ret;
         ret.nbDims = 4;
-        ret.d[0] = 25;
+        ret.d[0] = CALIB_STEP;
         ret.d[1] = 3;
         ret.d[2] = 512;
         ret.d[3] = 512;

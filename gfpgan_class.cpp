@@ -8,7 +8,7 @@ GfpGanClass::GfpGanClass()
 	p_engine_file_length = -1;
 	p_engine_file_buffer = nullptr;
 
-#ifdef MODEL_FP_16
+#ifdef MODEL_IO_F16
 	this->p_b_channel = cv::Mat::zeros(INPUT_HEIGHT, INPUT_WIDTH, CV_16FC1);
 	this->p_g_channel = cv::Mat::zeros(INPUT_HEIGHT, INPUT_WIDTH, CV_16FC1);
 	this->p_r_channel = cv::Mat::zeros(INPUT_HEIGHT, INPUT_WIDTH, CV_16FC1);
@@ -17,20 +17,33 @@ GfpGanClass::GfpGanClass()
 	p_g_out_channel = cv::Mat::zeros(INPUT_HEIGHT, INPUT_WIDTH, CV_16FC1);
 	p_r_out_channel = cv::Mat::zeros(INPUT_HEIGHT, INPUT_WIDTH, CV_16FC1);
 
-	this->p_merge_result_vec.push_back(this->p_b_out_channel);
-	this->p_merge_result_vec.push_back(this->p_g_out_channel);
-	this->p_merge_result_vec.push_back(this->p_r_out_channel);
+
+#elif MODEL_IO_UI8
+	this->p_b_channel = cv::Mat::zeros(INPUT_HEIGHT, INPUT_WIDTH, CV_8UC1);
+	this->p_g_channel = cv::Mat::zeros(INPUT_HEIGHT, INPUT_WIDTH, CV_8UC1);
+	this->p_r_channel = cv::Mat::zeros(INPUT_HEIGHT, INPUT_WIDTH, CV_8UC1);
+
+	p_b_out_channel = cv::Mat::zeros(INPUT_HEIGHT, INPUT_WIDTH, CV_8UC1);
+	p_g_out_channel = cv::Mat::zeros(INPUT_HEIGHT, INPUT_WIDTH, CV_8UC1);
+	p_r_out_channel = cv::Mat::zeros(INPUT_HEIGHT, INPUT_WIDTH, CV_8UC1);
 
 #else
 	this->p_b_channel = cv::Mat::zeros(INPUT_HEIGHT, INPUT_WIDTH, CV_32FC1);
 	this->p_g_channel = cv::Mat::zeros(INPUT_HEIGHT, INPUT_WIDTH, CV_32FC1);
 	this->p_r_channel = cv::Mat::zeros(INPUT_HEIGHT, INPUT_WIDTH, CV_32FC1);
+
+	p_b_out_channel = cv::Mat::zeros(INPUT_HEIGHT, INPUT_WIDTH, CV_32FC1);
+	p_g_out_channel = cv::Mat::zeros(INPUT_HEIGHT, INPUT_WIDTH, CV_32FC1);
+	p_r_out_channel = cv::Mat::zeros(INPUT_HEIGHT, INPUT_WIDTH, CV_32FC1);
 #endif // MODEL_FP_16
 
 	this->p_split_result_vec.push_back(this->p_b_channel);
 	this->p_split_result_vec.push_back(this->p_g_channel);
 	this->p_split_result_vec.push_back(this->p_r_channel);
-	
+
+	this->p_merge_result_vec.push_back(this->p_b_out_channel);
+	this->p_merge_result_vec.push_back(this->p_g_out_channel);
+	this->p_merge_result_vec.push_back(this->p_r_out_channel);
 
 	p_cpu_infer_input_buffer = new INPUT_DATA_TYPE[INPUT_BATCH * INPUT_CHANNEL * INPUT_HEIGHT * INPUT_WIDTH];
 	p_cpu_infer_output_buffer = new OUTPUT_DATA_TYPE[INPUT_BATCH * INPUT_CHANNEL * INPUT_HEIGHT * INPUT_WIDTH];
@@ -65,16 +78,23 @@ void GfpGanClass::pPreProcess(cv::Mat input_img)
 {
 	cv::Mat input_mat;
 	// conver to float: 32f
-#ifdef MODEL_FP_16
+#ifdef MODEL_IO_F16
 	input_img.convertTo(input_mat, CV_16FC3, 1.0 / 255.0, 0);
+#elif MODEL_IO_UI8
+	// nothing 
 #else
 	input_img.convertTo(input_mat, CV_32FC3, 1.0 / 255.0);
 #endif // MODEL_FP_16
 
-	
+#ifndef MODEL_IO_UI8
 	// in gfpgan: mean: 0.5; STD:0.5
 	cv::Mat input_data = (input_mat - 0.5f) / 0.5f; // what about (2 * input_mat - 1)
 	cv::split(input_data, this->p_split_result_vec);
+#else
+	cv::split(input_img, this->p_split_result_vec);
+#endif // !MODEL_IO_UI8
+
+	
 	double begin = cv::getTickCount();
 
 	size_t img_data_size = (INPUT_HEIGHT) * (INPUT_WIDTH);
@@ -107,21 +127,19 @@ void GfpGanClass::pPreProcess(cv::Mat input_img)
 
 void GfpGanClass::pPostProcess()
 {
-	size_t img_data_size = (INPUT_HEIGHT) * (INPUT_WIDTH);
+	size_t img_data_size = (INPUT_HEIGHT) * (INPUT_WIDTH);	
 	
-#ifdef MODEL_FP_16
 	memcpy(this->p_r_out_channel.data, this->p_cpu_infer_output_buffer + 0 * img_data_size, img_data_size * sizeof(OUTPUT_DATA_TYPE));
 	memcpy(this->p_g_out_channel.data, this->p_cpu_infer_output_buffer + 1 * img_data_size, img_data_size * sizeof(OUTPUT_DATA_TYPE));
 	memcpy(this->p_b_out_channel.data, this->p_cpu_infer_output_buffer + 2 * img_data_size, img_data_size * sizeof(OUTPUT_DATA_TYPE));
+	
 	cv::merge(this->p_merge_result_vec, this->p_infer_result);
-#else
-	memcpy(this->p_r_channel.data, this->p_cpu_infer_output_buffer + 0 * img_data_size, img_data_size * sizeof(OUTPUT_DATA_TYPE));
-	memcpy(this->p_g_channel.data, this->p_cpu_infer_output_buffer + 1 * img_data_size, img_data_size * sizeof(OUTPUT_DATA_TYPE));
-	memcpy(this->p_b_channel.data, this->p_cpu_infer_output_buffer + 2 * img_data_size, img_data_size * sizeof(OUTPUT_DATA_TYPE));
-	cv::merge(this->p_split_result_vec, this->p_infer_result);
-#endif // MODEL_FP_16
+
+#ifndef MODEL_IO_UI8
 	this->p_infer_result = (this->p_infer_result + 1.0f) / 2.0f;
 	this->p_infer_result.convertTo(this->p_infer_result, CV_8UC3, 255);
+#endif // !MODEL_IO_UI8
+
 }
 
 bool GfpGanClass::pLoadEngineFileToMemery()

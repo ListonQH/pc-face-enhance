@@ -66,8 +66,6 @@ cv::Mat GfpGanClassV86::Infer(cv::Mat in_img)
 		d_2_h_img_data_size, cudaMemcpyDeviceToHost));
 #endif // ASYNC
 	
-	
-	
 	// sync
 	//cudaStreamSynchronize(this->p_trt_cuda_stream);
 	// get output

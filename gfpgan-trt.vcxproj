@@ -158,7 +158,6 @@
     <ClInclude Include="utils.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="m512f32.engine" />
     <None Include="README.md" />
     <None Include="stylegan-f16.engine" />
   </ItemGroup>
