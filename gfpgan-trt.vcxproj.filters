@@ -39,6 +39,9 @@
     <ClCompile Include="utils.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="gfpgan_class_cuda_graphs.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="gfpgan_class_v85.h">
@@ -71,14 +74,21 @@
     <ClInclude Include="utils.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="gfpgan_class_cuda_graphs.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="README.md" />
-    <None Include="stylegan-f16.engine" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="gfpgan-trt.rc">
       <Filter>资源文件</Filter>
     </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="imgs\00_00.png">
+      <Filter>资源文件</Filter>
+    </Image>
   </ItemGroup>
 </Project>

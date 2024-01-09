@@ -55,6 +55,7 @@
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
+    <Import Project="$(VCTargetsPath)\BuildCustomizations\CUDA 12.3.props" />
   </ImportGroup>
   <ImportGroup Label="Shared">
   </ImportGroup>
@@ -123,7 +124,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(TRT_V86_PATH)\include;$(CUDA_PATH)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(CUDA_PATH)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
@@ -131,11 +132,12 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>opencv_world480.lib;$(TRT_V86_PATH)\*.lib;$(CUDA_PATH)\lib\x64\*.lib;nvinfer_plugin.lib;nvonnxparser.lib;nvparsers.lib;cudnn.lib;cublas.lib;cudart.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(TRT_V86_PATH)\lib;$(CUDA_PATH)\lib\x64;$(CUDA_PATH)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>opencv_world480.lib;$(CUDA_PATH)\lib\x64\*.lib;nvinfer_plugin.lib;nvonnxparser.lib;nvparsers.lib;cudnn.lib;cublas.lib;cudart.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(CUDA_PATH)\lib\x64;$(CUDA_PATH)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="gfpgan_class_cuda_graphs.cpp" />
     <ClCompile Include="gfpgan_class_cuda_ocv.cpp" />
     <ClCompile Include="gfpgan_class_v85.cpp" />
     <ClCompile Include="gfpgan_class_v86.cpp" />
@@ -147,6 +149,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="error_code.h" />
+    <ClInclude Include="gfpgan_class_cuda_graphs.h" />
     <ClInclude Include="gfpgan_class_cuda_ocv.h" />
     <ClInclude Include="gfpgan_class_v86.h" />
     <ClInclude Include="gfpgan_class.h" />
@@ -159,12 +162,15 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="README.md" />
-    <None Include="stylegan-f16.engine" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="gfpgan-trt.rc" />
   </ItemGroup>
+  <ItemGroup>
+    <Image Include="imgs\00_00.png" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
+    <Import Project="$(VCTargetsPath)\BuildCustomizations\CUDA 12.3.targets" />
   </ImportGroup>
 </Project>
