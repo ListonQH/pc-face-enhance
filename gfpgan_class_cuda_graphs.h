@@ -21,22 +21,22 @@ public:
 	~GfpGanClassCudaGraphs();
 
 	cv::Mat	Infer(cv::Mat in_img);
-	cv::Mat	InferCudaGraphs(cv::Mat in_img);
 	bool	Init();
 	
 private:
 
 	bool pPrepareCudaGraphs();
-	bool pWarmUp();
 
 	TRTLogger						p_trt_logger;
 	nvinfer1::IRuntime*				p_trt_runtime;
 	nvinfer1::ICudaEngine*			p_trt_engine;
 	nvinfer1::IExecutionContext*	p_trt_infer_context;
 
-	cudaStream_t					p_trt_cuda_stream;
-	cudaGraph_t						p_trt_cuda_graph;
-	cudaGraphExec_t					p_trt_cuda_instance;
+	cudaStream_t					p_cuda_stream;
+	cudaStream_t					p_cuda_streams[1];
+
+	cudaGraph_t						p_cuda_graph;
+	cudaGraphExec_t					p_cuda_instance;
 
 	size_t	p_gpu_buffer_input_index;
 	size_t	p_gpu_buffer_output_index;

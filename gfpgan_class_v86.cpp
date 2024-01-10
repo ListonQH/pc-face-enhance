@@ -28,14 +28,14 @@ cv::Mat GfpGanClassV86::Infer(cv::Mat in_img)
 		return cv::Mat();
 	}
 
+	double begin = cv::getTickCount();
+
 	this->pPreProcess(in_img);
 
 	// push ram to cuda
 	size_t h_2_d_img_data_size = sizeof(INPUT_DATA_TYPE) * INPUT_BATCH * INPUT_CHANNEL * INPUT_HEIGHT * INPUT_WIDTH;
 	size_t d_2_h_img_data_size = sizeof(INPUT_DATA_TYPE) * INPUT_BATCH * INPUT_CHANNEL * INPUT_HEIGHT * INPUT_WIDTH;
-	
-	double begin = cv::getTickCount();
-	
+		
 	// inference
 #ifdef ASYNC
 	CHECK(cudaMemcpyAsync(p_gpu_buffer_infer[p_gpu_buffer_input_index],
@@ -52,9 +52,6 @@ cv::Mat GfpGanClassV86::Infer(cv::Mat in_img)
 	this->p_trt_infer_context->executeV2(p_gpu_buffer_infer);
 #endif // ASYNC
 
-	p_test_infer_counter = p_test_infer_counter + 1;
-	p_test_infer_time_ms = p_test_infer_time_ms + (cv::getTickCount() - begin) / cv::getTickFrequency() * 1000.0;
-
 	// pull cuda to RAM
 #ifdef ASYNC
 	CHECK(cudaMemcpyAsync(this->p_cpu_infer_output_buffer,
@@ -70,6 +67,10 @@ cv::Mat GfpGanClassV86::Infer(cv::Mat in_img)
 	//cudaStreamSynchronize(this->p_trt_cuda_stream);
 	// get output
 	this->pPostProcess();
+
+	p_test_infer_counter = p_test_infer_counter + 1;
+	p_test_infer_time_ms = p_test_infer_time_ms + (cv::getTickCount() - begin) / cv::getTickFrequency() * 1000.0;
+
 	return this->p_infer_result;
 }
 

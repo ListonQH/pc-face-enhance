@@ -2,6 +2,10 @@
 
 #include <opencv2/opencv.hpp>
 
+//#define V86 true
+
+#define USE_CUDA_GRAPHS     true
+
 #define MODEL_IO_UI8            true
 #define INPUT_DATA_TYPE			unsigned char
 #define OUTPUT_DATA_TYPE		unsigned char

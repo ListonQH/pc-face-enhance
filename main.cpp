@@ -7,7 +7,7 @@
 #include "gfpgan_class_v85.h"
 #include "gfpgan_class_v86.h"
 
-#define V86 true
+#include "gfpgan_class_cuda_graphs.h"
 
 using namespace std;
 
@@ -22,6 +22,10 @@ int main()
 #elif V86
 
 	instance = new GfpGanClassV86("GfpGanClassV86");
+
+#elif USE_CUDA_GRAPHS
+
+	instance = new GfpGanClassCudaGraphs("GfpGanClassCudaGraphs");
 	
 #endif // V85 or V86
 
@@ -65,7 +69,7 @@ int main()
 		if (counter % 90 == 0)
 		{
 			instance->DisplayTestInfo();
-			std::cout << instance->GetInstanceName() << "out infer time:" << out_infer_time * 1.0 / cv::getTickFrequency() * 1000.0  / counter << " ms" << std::endl << std::endl;
+			std::cout << "[Main Thread] Out-Infer Time:" << out_infer_time * 1.0 / cv::getTickFrequency() * 1000.0  / counter << " ms" << std::endl << std::endl;
 			counter = 0;
 			out_infer_time = 0;
 		}

@@ -52,7 +52,6 @@ GfpGanClass::GfpGanClass()
 
 void GfpGanClass::DisplayTestInfo()
 {
-	std::cout << p_test_name << p_test_infer_counter << " totall time (ms): " << p_test_infer_time_ms << " ms" << std::endl;
 	std::cout << p_test_name << p_test_infer_counter << " average time (ms): " << p_test_infer_time_ms / p_test_infer_counter << " ms per frame" << std::endl;
 	//std::cout << std::endl;
 	p_test_infer_counter = 0;
