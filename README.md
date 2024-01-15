@@ -6,6 +6,7 @@
 - OpenVINO，Intel 芯片的集显推理。
 - ONNXRuntime，AMD 芯片的集显推理。
 - TensorRT，Nvidia 独立显卡的推理。
+- Libtorch, C++版本的PyTorch。有一定的可取之处。
 
 # 参考
 
@@ -28,3 +29,5 @@
 [ONNXRuntime](https://onnxruntime.ai/): ONNX Runtime.
 
 [TensorRT](https://developer.nvidia.cn/tensorrt): TensoRT.
+
+[Libtorch](https://pytorch.org/cppdocs/installing.html): Libtorch.
