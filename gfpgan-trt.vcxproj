@@ -137,27 +137,26 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="gfpgan_class_cuda_graphs.cpp" />
-    <ClCompile Include="gfpgan_class_cuda_ocv.cpp" />
-    <ClCompile Include="gfpgan_class_v85.cpp" />
-    <ClCompile Include="gfpgan_class_v86.cpp" />
-    <ClCompile Include="gfpgan_class.cpp" />
+    <ClCompile Include="gfpgan\gfpgan_cuda_graphs.cpp" />
+    <ClCompile Include="gfpgan\gfpgan_cuda_ocv.cpp" />
+    <ClCompile Include="gfpgan\gfpgan_trt.cpp" />
+    <ClCompile Include="gfpgan\run_gfpgan.cpp" />
+    <ClCompile Include="gfpgan\gfpgan_libtorch.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="test.cpp" />
-    <ClCompile Include="trt_logger.h" />
+    <ClCompile Include="gfpgan\trt_logger.h" />
     <ClCompile Include="utils.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="error_code.h" />
-    <ClInclude Include="gfpgan_class_cuda_graphs.h" />
-    <ClInclude Include="gfpgan_class_cuda_ocv.h" />
-    <ClInclude Include="gfpgan_class_v86.h" />
-    <ClInclude Include="gfpgan_class.h" />
-    <ClInclude Include="gfpgan_trt_int8_calibrator.h" />
-    <ClInclude Include="gfpgan_trt_int8_stream.h" />
+    <ClInclude Include="gfpgan\gfpgan_cuda_graphs.h" />
+    <ClInclude Include="gfpgan\gfpgan_cuda_ocv.h" />
+    <ClInclude Include="gfpgan\gfpgan_trt.h" />
+    <ClInclude Include="gfpgan\gfpgan_trt_int8_calibrator.h" />
+    <ClInclude Include="gfpgan\gfpgan_trt_int8_stream.h" />
+    <ClInclude Include="gfpgan\run_gfpgan.h" />
+    <ClInclude Include="gfpgan\gfpgan_libtorch.h" />
     <ClInclude Include="resource.h" />
-    <ClInclude Include="run_constant.h" />
-    <ClInclude Include="gfpgan_class_v85.h" />
+    <ClInclude Include="gfpgan\run_constant.h" />
     <ClInclude Include="utils.h" />
   </ItemGroup>
   <ItemGroup>

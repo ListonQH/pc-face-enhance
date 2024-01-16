@@ -7,6 +7,7 @@
 #include <filesystem>
 #include <string>
 #include <vector>
+#include <iostream>
 
 namespace LqhUtil
 {
@@ -21,4 +22,7 @@ namespace LqhUtil
 
 	std::string GetLayerDataType(nvinfer1::DataType dt);
 	std::string GetLayerOpType(nvinfer1::LayerType lt);
+
+	void print(std::string str);
+	void print_err(std::string str);
 }

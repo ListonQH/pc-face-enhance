@@ -1,4 +1,4 @@
-#include "gfpgan_class_cuda_ocv.h"
+#include "gfpgan_cuda_ocv.h"
 
 GfpGanClassCudaOCV::GfpGanClassCudaOCV()
 {

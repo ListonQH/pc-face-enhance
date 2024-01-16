@@ -253,3 +253,13 @@ std::string LqhUtil::GetLayerOpType(nvinfer1::LayerType lt)
     }
     return ret;
 }
+
+void LqhUtil::print(std::string str)
+{
+    std::cout << str << std::endl;
+}
+
+void LqhUtil::print_err(std::string str)
+{
+    std::cerr << str << std::endl;
+}
