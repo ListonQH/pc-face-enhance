@@ -10,6 +10,10 @@ GfpGanClassTRT::GfpGanClassTRT(std::string name)
 	p_g_out_channel = cv::Mat::zeros(INPUT_HEIGHT, INPUT_WIDTH, CV_8UC1);
 	p_r_out_channel = cv::Mat::zeros(INPUT_HEIGHT, INPUT_WIDTH, CV_8UC1);
 
+	this->p_merge_result_vec.push_back(p_b_out_channel);
+	this->p_merge_result_vec.push_back(p_g_out_channel);
+	this->p_merge_result_vec.push_back(p_r_out_channel);
+
 	p_test_infer_counter = 0;
 	p_test_infer_time_ms = 0.0f;
 

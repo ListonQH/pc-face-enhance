@@ -186,7 +186,6 @@ bool GfpGanClassCudaGraphs::pPrepareCudaGraphs()
 	return true;
 }
 
-
 bool GfpGanClassCudaGraphs::pLoadEngineFileToMemery()
 {
 	// binary read engine file

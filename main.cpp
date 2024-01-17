@@ -12,11 +12,12 @@ enum GfpGanEnum
 {
 	TRT,
 	Libtorch,
+	MULTI_STREAM,
 };
 
 int main()
 {
-	auto run_gfpgan_type = GfpGanEnum::Libtorch;
+	auto run_gfpgan_type = GfpGanEnum::TRT;
 	switch (run_gfpgan_type)
 	{
 	case TRT:
@@ -24,6 +25,9 @@ int main()
 		break;
 	case Libtorch:
 		run_gfpgan_libtorch();
+		break;
+	case MULTI_STREAM:
+		run_gfpgan_multi_stream();
 		break;
 	default:
 		break;

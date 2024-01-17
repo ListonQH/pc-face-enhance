@@ -39,6 +39,9 @@
     <ClCompile Include="gfpgan\gfpgan_libtorch.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="gfpgan\gfpgan_mulit_stream.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="gfpgan\run_constant.h">
@@ -72,6 +75,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="gfpgan\gfpgan_libtorch.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="gfpgan\gfpgan_mulit_stream.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

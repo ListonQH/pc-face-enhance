@@ -142,6 +142,7 @@
     <ClCompile Include="gfpgan\gfpgan_trt.cpp" />
     <ClCompile Include="gfpgan\run_gfpgan.cpp" />
     <ClCompile Include="gfpgan\gfpgan_libtorch.cpp" />
+    <ClCompile Include="gfpgan\gfpgan_mulit_stream.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="gfpgan\trt_logger.h" />
     <ClCompile Include="utils.cpp" />
@@ -155,6 +156,7 @@
     <ClInclude Include="gfpgan\gfpgan_trt_int8_stream.h" />
     <ClInclude Include="gfpgan\run_gfpgan.h" />
     <ClInclude Include="gfpgan\gfpgan_libtorch.h" />
+    <ClInclude Include="gfpgan\gfpgan_mulit_stream.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="gfpgan\run_constant.h" />
     <ClInclude Include="utils.h" />
