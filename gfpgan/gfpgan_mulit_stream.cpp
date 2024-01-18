@@ -40,10 +40,10 @@ GfpGanMulitStream::~GfpGanMulitStream()
 
 cv::Mat GfpGanMulitStream::Infer(cv::Mat in_img)
 {
-	//p_merge_result_vec.clear();
-	cv::split(in_img, this->p_split_result_vec);
 
 	double begin = cv::getTickCount();
+	//p_merge_result_vec.clear();
+	cv::split(in_img, this->p_split_result_vec);
 
 	CHECK(cudaMemcpyAsync(p_gpu_buffer_infer[p_gpu_buffer_input_index],
 		this->p_cpu_infer_input_buffer,

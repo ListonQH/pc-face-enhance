@@ -17,7 +17,7 @@ enum GfpGanEnum
 
 int main()
 {
-	auto run_gfpgan_type = GfpGanEnum::TRT;
+	auto run_gfpgan_type = GfpGanEnum::Libtorch;
 	switch (run_gfpgan_type)
 	{
 	case TRT:
